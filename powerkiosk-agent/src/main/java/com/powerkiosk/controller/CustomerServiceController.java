@@ -2,6 +2,7 @@ package com.powerkiosk.controller;
 
 import com.powerkiosk.dao.CustomerService;
 import com.powerkiosk.model.Customer;
+import com.powerkiosk.model.ServingInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,17 @@ public class CustomerServiceController {
     @Autowired
     private CustomerService customerService;
 
+    @GetMapping("/currentServingInfo")
+    public ResponseEntity getCurrentServingInfo() {
+        ServingInfo currentServingInfo = customerService.getCurrentServingInfo();
+
+        if(currentServingInfo != null){
+            return new ResponseEntity(currentServingInfo, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping("/{serverId}")
     public ResponseEntity getNextCustomer(@PathVariable("serverId") int serverId){
         Customer nextCustomer = customerService.getNextCustomer(serverId);
@@ -36,8 +48,7 @@ public class CustomerServiceController {
     @PostConstruct
     public void init(){
         for(int i = 1; i < 100; i++){
-           customerService.addCustomer(new Customer());
-
+            customerService.addCustomer(new Customer(i, -1));
         }
     }
 }

@@ -17,16 +17,16 @@
 <section class="body">
     <section>
         <h2>Main Board</h2>
-        <table>
+        <table id="servingReportTable">
             <tr>
                 <th>Total</th>
                 <th>Served</th>
                 <th>Waiting</th>
             </tr>
             <tr>
-                <td>400</td>
-                <td>3</td>
-                <td>397</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
             </tr>
         </table>
     </section>
@@ -35,28 +35,19 @@
         <br>
         <br>
         <h2>Status Board</h2>
-        <table>
+        <table id="currentServingTable">
             <tr>
                 <th/>
-                <th>Window 1</th>
-                <th>Window 2</th>
-                <th>Window 3</th>
             </tr>
             <tr>
                 <td>Serving</td>
-                <td>400</td>
-                <td>3</td>
-                <td>397</td>
             </tr>
             <tr>
                 <td>Average Waiting Time: 30 min</td>
-                <td>20 min</td>
-                <td>15 min</td>
-                <td>10 min</td>
             </tr>
         </table>
         <br>
-        <button type="button" class="button">Serve</button>
+        <button type="button" class="button" onclick="getNextCustomer(1)">Serve</button>
     </section>
 </section>
 

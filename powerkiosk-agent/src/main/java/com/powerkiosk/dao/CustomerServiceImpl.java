@@ -1,6 +1,7 @@
 package com.powerkiosk.dao;
 
 import com.powerkiosk.model.Customer;
+import com.powerkiosk.model.ServingInfo;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,5 +15,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     public Customer addCustomer(Customer customer) {
         return customerServiceDao.addCustomer(customer);
+    }
+
+    public ServingInfo getCurrentServingInfo() {
+        return customerServiceDao.getCurrentServingInfo();
     }
 }
