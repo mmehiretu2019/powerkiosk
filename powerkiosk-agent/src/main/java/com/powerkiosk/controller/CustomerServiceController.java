@@ -4,11 +4,13 @@ import com.powerkiosk.dao.CustomerService;
 import com.powerkiosk.model.Customer;
 import com.powerkiosk.model.ServingInfo;
 import com.powerkiosk.model.ServingRequest;
+import com.powerkiosk.model.ServingSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +25,9 @@ public class CustomerServiceController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @GetMapping("/currentServingInfo")
     public ResponseEntity getCurrentServingInfo() {
@@ -42,7 +47,26 @@ public class CustomerServiceController {
 
         if(nextCustomer != null){
             ServingInfo servingInfo = customerService.getCurrentServingInfo();
+
+            //send summary message
+            ServingSummary summary = customerService.getServingSummary();
+            messagingTemplate.convertAndSend("/topic/servingSummary", new ResponseEntity<>(summary, HttpStatus.OK));
+
             return new ResponseEntity(servingInfo, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    @MessageMapping("/summary")
+    @SendTo("/topic/servingSummary")
+    public ResponseEntity getNextNumberInLine(){
+
+        customerService.addCustomer(new Customer(-1, -1));
+        ServingSummary summary = customerService.getServingSummary();
+        if(summary != null){
+
+            return new ResponseEntity(summary, HttpStatus.OK);
         }
 
         return new ResponseEntity(HttpStatus.NOT_FOUND);

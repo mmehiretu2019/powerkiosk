@@ -2,6 +2,7 @@ package com.powerkiosk.dao;
 
 import com.powerkiosk.model.Customer;
 import com.powerkiosk.model.ServingInfo;
+import com.powerkiosk.model.ServingSummary;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,5 +20,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     public ServingInfo getCurrentServingInfo() {
         return customerServiceDao.getCurrentServingInfo();
+    }
+
+    @Override
+    public ServingSummary getServingSummary() {
+        return customerServiceDao.getServingSummary();
     }
 }

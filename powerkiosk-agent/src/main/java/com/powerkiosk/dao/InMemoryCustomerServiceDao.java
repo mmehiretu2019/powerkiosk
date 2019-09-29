@@ -3,6 +3,7 @@ package com.powerkiosk.dao;
 import com.powerkiosk.model.Customer;
 import com.powerkiosk.model.CustomerServer;
 import com.powerkiosk.model.ServingInfo;
+import com.powerkiosk.model.ServingSummary;
 
 import java.time.OffsetDateTime;
 import java.util.*;
@@ -67,5 +68,18 @@ public class InMemoryCustomerServiceDao {
         servingInfo.setCustomerServers(servers);
 
         return servingInfo;
+    }
+
+    public ServingSummary getServingSummary() {
+        long servedCount = 0;
+        for(int serverId: serverToCustomerMap.keySet()){
+            servedCount += serverToCustomerMap.get(serverId)
+                    .size();
+        }
+        ServingSummary summary = new ServingSummary();
+        summary.setServedCount(servedCount);
+        summary.setWaitingCount(customerLine.size());
+
+        return summary;
     }
 }

@@ -2,6 +2,7 @@ package com.powerkiosk.dao;
 
 import com.powerkiosk.model.Customer;
 import com.powerkiosk.model.ServingInfo;
+import com.powerkiosk.model.ServingSummary;
 
 public interface CustomerService {
 
@@ -10,4 +11,6 @@ public interface CustomerService {
     Customer addCustomer(Customer customer);
 
     ServingInfo getCurrentServingInfo();
+
+    ServingSummary getServingSummary();
 }
