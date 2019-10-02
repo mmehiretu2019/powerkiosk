@@ -1,0 +1,41 @@
+/* Style the header */
+.header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Content section or body */
+.body {
+	padding-top: 50px;
+  	padding-right: 30px;
+ 	padding-bottom: 50px;
+  	padding-left: 80px;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+.sign-up {
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+}

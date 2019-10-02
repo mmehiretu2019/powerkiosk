@@ -1,5 +1,6 @@
 var stompClient = null;
-
+//use browser name as providerId for now. Later, it will be actual provider id
+var providerId = navigator.productSub;
 
 function connect() {
     var socket = new SockJS('/gs-guide-websocket');
@@ -7,15 +8,16 @@ function connect() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
 
+
         //Subscribe to topic for receiving serving info
-        stompClient.subscribe('/topic/servingInfo', function (message) {
+        stompClient.subscribe('/topic/servingInfo/' + providerId, function (message) {
 
             var messageObj = JSON.parse(message.body);
             showServingInfo(messageObj.body);
         });
 
          //Subscribe to topic for general serving info (serving summary)
-        stompClient.subscribe('/topic/servingSummary', function (message) {
+        stompClient.subscribe('/topic/servingSummary/' + providerId, function (message) {
 
             var messageObj = JSON.parse(message.body);
             showServingSummary(messageObj.body);
@@ -32,11 +34,11 @@ function disconnect() {
 }
 
 function getNextCustomer(){
-    stompClient.send("/app/info", {}, JSON.stringify({'serverId': '1'}));
+    stompClient.send("/app/info/" + providerId, {}, JSON.stringify({'serverId': '1'}));
 }
 
 function getNextNumberInLine(){
-    stompClient.send("/app/summary", {}, {});
+    stompClient.send("/app/summary/" + providerId, {}, {});
 }
 
 function showServingInfo(data) {

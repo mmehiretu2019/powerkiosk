@@ -1,4 +1,4 @@
-package com.powerkiosk.dao;
+package com.powerkiosk.admin.dao;
 
 import com.powerkiosk.model.User;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
-package com.powerkiosk.controller;
+package com.powerkiosk.admin.controller;
 
-import com.powerkiosk.dao.UserService;
+
+import com.powerkiosk.admin.dao.UserService;
 import com.powerkiosk.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
