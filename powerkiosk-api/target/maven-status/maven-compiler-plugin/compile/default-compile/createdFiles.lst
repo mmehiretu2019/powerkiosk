@@ -1,0 +1,13 @@
+com/powerkiosk/controller/CustomerServiceController.class
+com/powerkiosk/dao/ServiceProviderServiceImpl.class
+com/powerkiosk/dao/InMemoryUserDao.class
+com/powerkiosk/dao/ServiceProviderService.class
+com/powerkiosk/config/WebSocketConfig.class
+com/powerkiosk/dao/UserServiceImpl.class
+com/powerkiosk/controller/ServiceProviderController.class
+com/powerkiosk/dao/InMemoryCustomerServiceDao.class
+com/powerkiosk/dao/UserService.class
+com/powerkiosk/dao/CustomerService.class
+com/powerkiosk/dao/CustomerServiceImpl.class
+com/powerkiosk/PowerKioskApi.class
+com/powerkiosk/config/CorsConfig.class
