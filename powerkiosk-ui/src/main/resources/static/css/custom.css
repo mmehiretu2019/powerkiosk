@@ -11,3 +11,41 @@
 	margin-top: 20vh;
 
 }
+
+.theme{
+	color: #fff;
+}
+
+.vertical-nav {
+	height: 100vh;
+}
+.vertical-nav li {
+	border-top: solid 1px #fff;
+}
+
+.vertical-nav li a i, span{
+	color: #fff;
+}
+
+.vertical-nav li:hover, li a.active {
+	background-color: gray;
+}
+
+.vertical-nav i{
+	margin-right: 1em;
+}
+
+#login-container {
+	display: none;
+}
+
+/*#logged-in-view {
+	display: block;
+}*/
+
+.div-border{
+	border: solid 1px;
+}
+.div-border h1{
+	text-align: center !important;
+}

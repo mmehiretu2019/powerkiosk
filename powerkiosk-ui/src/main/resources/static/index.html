@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- offline mode -->
+    <link rel="stylesheet" type="text/css" href="offline/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="offline/iconfont/material-icons.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://kit.fontawesome.com/c5f131f4f8.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="offline/jquery.min.js"></script>
+    <script type="text/javascript" src="offline/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+
+
+    <!-- prod mode -->
+    <!--    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>-->
+
+    <!--    <script src="/webjars/jquery/jquery.min.js"></script>-->
+    <!--    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>-->
+
+    <!--    <script src="/webjars/sockjs-client/sockjs.min.js"></script>-->
+    <!--    <script src="/webjars/stomp-websocket/stomp.min.js"></script>-->
+</head>
+
+
+
+<body>
+
+<!-- Start of top nav -->
+<nav class="navbar navbar-dark bg-dark">
+    <button class="navbar-toggle sideMenuToggler" type="button"> <span class="navbar-toggler-icon"></span></button>
+
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Start of main container -->
+<div class="container-fluid">
+    <!-- Start of Login form -->
+    <div class="row theme container-fluid bg" id="login-container">
+        <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <form class="form-container">
+                <h1>Please Log in</h1>
+                <div class="form-group">
+                    <label id="provider-id"><b>Provider ID</b></label>
+                    <input class="form-control" type="text" placeholder="Enter Provider ID" required>
+
+                </div>
+
+                <div class="form-group">
+                    <label id="username"><b>Email</b></label>
+                    <input class="form-control" type="text" placeholder="Enter Email" name="email" required>
+
+                </div>
+
+                <div class="form-login">
+                    <label id="password"><b>Password</b></label>
+                    <input class="form-control" type="password" placeholder="Enter Password" name="psw" required>
+
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Start of main view -->
+    <div class="row" id="logged-in-view">
+        <div class="col-2">
+            <ul class="nav flex-column bg-dark vertical-nav" id="nav-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab">
+                        <i class="fas fa-th-list"></i><span class="text"> Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-settings-tab" data-toggle="tab" href="#nav-settings" role="tab">
+                        <i class="fas fa-cogs"></i><span class="text"> Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-10">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div>
+                        <h1>Main Board</h1>
+                        <div class="row table-responsive-sm">
+                            <!-- main table -->
+                            <table class="table table-striped table-dark">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Served</th>
+                                    <th scope="col">Waiting</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1>Current Status</h1>
+                        <div class="row table-responsive-sm">
+                            <!-- current status table -->
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Window 1</th>
+                                    <th scope="col">Window 2</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Serving</td>
+                                    <td class="table-success">5</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>Average Waiting Time: 15 min</td>
+                                    <td class="table-success">10 min</td>
+                                    <td>15 min</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
+                    <h1>Settings</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of main container -->
+
+
+</body>
+
+<div class="container-fluid">
+    <!-- Footer -->
+    <footer class="page-footer font-small bg-secondary theme pt-4">
+
+        <!-- Footer Elements -->
+        <div class="container">
+
+            <!-- Social buttons -->
+            <ul class="list-unstyled list-inline text-center">
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-fb mx-1">
+                        <i class="fab fa-facebook-f"> </i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-tw mx-1">
+                        <i class="fab fa-twitter"> </i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-gplus mx-1">
+                        <i class="fab fa-google-plus-g"> </i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-li mx-1">
+                        <i class="fab fa-linkedin-in"> </i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-dribbble mx-1">
+                        <i class="fab fa-dribbble"> </i>
+                    </a>
+                </li>
+            </ul>
+            <!-- Social buttons -->
+
+        </div>
+        <!-- Footer Elements -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center bg-dark py-3">© 2019 Copyright</div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+</div>
+
+
+</html>
