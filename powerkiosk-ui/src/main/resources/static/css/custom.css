@@ -16,15 +16,18 @@
 	color: #fff;
 }
 
+.navbar {
+	background-color: #196f91 !important;
+	color: white;
+	text-decoration: bold !important;
+}
+
 .vertical-nav {
+	background-color: #196f91 !important;
 	height: 100vh;
 }
 .vertical-nav li {
-	border-top: solid 1px #fff;
-}
-
-.vertical-nav li a i, span{
-	color: #fff;
+	border-top: solid 1px gray;
 }
 
 .vertical-nav li:hover, li a.active {
@@ -48,4 +51,31 @@
 }
 .div-border h1{
 	text-align: center !important;
+}
+
+.status-board{
+	margin-top: 1em;
+}
+
+
+
+.table-striped  tbody tr:nth-child(even) {
+/*	background-color: #196f91;*/
+	background-color: #b4dff0;
+}
+
+.table-striped  thead {
+	background-color: #b4dff0;
+	/*color: white;*/
+}
+.tab-pane{
+	padding-top: 2em;
+}
+
+h4{
+	color: #196f91;
+	margin-bottom: 1em;
+}
+.btn {
+	border-radius: 0;
 }
