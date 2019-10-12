@@ -8,8 +8,8 @@
 .form-container{
 	border: 1px solid #fff;
 	padding: 50px 60px;
-	margin-top: 20vh;
-
+/*	margin-top: 20vh;
+*/
 }
 
 .theme{
@@ -27,7 +27,7 @@
 	height: 100vh;
 }
 .vertical-nav li {
-	border-top: solid 1px gray;
+	border-top: solid 1px #b4dff0;
 }
 
 .vertical-nav li:hover, li a.active {
@@ -36,10 +36,6 @@
 
 .vertical-nav i{
 	margin-right: 1em;
-}
-
-#login-container {
-	display: none;
 }
 
 /*#logged-in-view {

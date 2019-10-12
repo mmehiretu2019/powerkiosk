@@ -6,11 +6,10 @@
 
     <!-- offline mode -->
     <link rel="stylesheet" type="text/css" href="offline/bootstrap-4.3.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="offline/iconfont/material-icons.css">
+    <link rel="stylesheet" type="text/css" href="offline/fontawesome-free-5.11.2-web/css/all.css">
     <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/style.css">
+    <!--    <link rel="stylesheet" href="css/style.css">-->
 
-    <script src="https://kit.fontawesome.com/c5f131f4f8.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="offline/jquery.min.js"></script>
     <script type="text/javascript" src="offline/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 
@@ -50,8 +49,7 @@
 <div class="container-fluid">
     <!-- Start of Login form -->
     <div class="row theme container-fluid bg" id="login-container">
-        <div class="col-md-4 col-sm-4 col-xs-12"></div>
-        <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="col-sm-5 offset-sm-4 pt-4">
             <form class="form-container">
                 <h1>Please Log in</h1>
                 <div class="form-group">
@@ -72,18 +70,108 @@
 
                 </div>
 
-                <div class="checkbox">
+                <div class="checkbox pt-3 pb-3">
                     <label>
                         <input type="checkbox"> Remember me
                     </label>
+                    <label class="float-right">
+                        <a href="#">Forgot your password?</a>
+                    </label>
                 </div>
-                <button type="submit" class="btn btn-success btn-block">Submit</button>
+                <button type="submit" class="btn btn-success btn-block" onclick="logIn()">Submit</button>
+                <div class="pt-5">
+                    <label>
+                        <a class="lead" href="#" onclick="createAccount()">
+                            Create an account today and try for <strong>free</strong>
+                        </a>
+                    </label>
+                </div>
             </form>
         </div>
     </div>
 
+    <!--Start of sign up form -->
+    <div class="row container-fluid d-none" id="sign-up-container">
+        <div class="container">
+            <h4>Business Information</h4>
+            <div>
+                <label>Business Name:</label>
+                <input type="text" id="new-business-name">
+            </div>
+            <div>
+                <label>Business Logo </label>
+                <input type="file" id="new-logo-file">
+            </div>
+            <div class="pt-3">
+                <h5>Address</h5>
+            </div>
+            <div class="pl-5 business-address">
+                <div>
+                    <label>Street Address</label>
+                    <input type="text" id="new-address1">
+                </div>
+
+                <div>
+                    <label>Street Address Line 2</label>
+                    <input type="text" id="new-address2">
+                </div>
+
+                <div>
+                    <label>City</label>
+                    <input type="text" id="new-city">
+                </div>
+
+                <div>
+                    <label>State</label>
+                    <input type="text" id="new-state">
+                </div>
+
+                <div>
+                    <label>Postal / Zip Code</label>
+                    <input type="text" id="new-zip-code">
+                </div>
+
+                <div>
+                    <label>Country</label>
+                    <input type="text" id="new-country">
+                </div>
+
+            </div>
+            <div class="pt-3">
+                <h5>Business Contact</h5>
+            </div>
+            <div class="pl-5 business-contact">
+                <div>
+                    <label>First Name</label>
+                    <input  type="text" id="new-first-name">
+                </div>
+
+                <div>
+                    <label>Last Name</label>
+                    <input  type="text" id="new-last-name">
+                </div>
+
+                <div>
+                    <label>Email:</label>
+                    <input type="email" id="new-business-email">
+                </div>
+
+                <div>
+                    <label>Phone:</label>
+                    <input type="tel" id="new-business-phone">
+                </div>
+
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-outline-success" onclick="signUp()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!--End of sign up form -->
+
     <!-- Start of main view -->
-    <div class="row" id="logged-in-view">
+    <div class="row d-none" id="admin-view-container">
         <div class="col-2">
             <ul class="nav flex-column bg-dark vertical-nav" id="nav-tab" role="tablist">
                 <li class="nav-item">
@@ -159,9 +247,45 @@
                         </div>
 
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-success" onclick="getNextCustomer()">Serve</button>
-                        <button type="button" class="btn btn-secondary" onclick="getNextNumberInLine()">Print Line Number</button>
+                    <div class="start-serving">
+                        <div>
+                            <div>
+                                <a data-toggle="modal" data-target="#modalStartServingForm" data-backdrop="static" data-keyboard="false">
+                                    <button class="btn btn-outline-success" type="button">Start Serving</button>
+                                </a>
+                            </div>                            <!--Start of start serving modal-->
+                            <div class="modal fade" id="modalStartServingForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h4 class="modal-title w-100 font-weight-bold">Start Serving Customers</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body mx-3">
+                                            <div class="md-form mb-2">
+                                                <label data-error="wrong" data-success="right" for="new-user-first-name">Serving Station</label>
+                                                <input type="text" id="serving-station-id" class="form-control validate">
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button class="btn btn-outline-success" data-toggle="collapse" href="#serving">Start</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--End of starting serving modal-->
+                        </div>
+                        <div id="serving" class="collapse">
+                            <label>Next<input id="next-serving-number"></label>
+                            <button type="button" class="btn btn-success" onclick="getNextCustomer()">Serve</button>
+                            <button type="button" class="btn btn-secondary" onclick="getNextNumberInLine()">Print Line Number</button>
+                        </div>
+
                     </div>
                 </div>
                 <!-- End of home tab -->
@@ -249,7 +373,7 @@
                     <h4>User Management</h4>
                     <div>
                         <a class="float-right" data-toggle="modal" data-target="#modalRegisterForm" data-backdrop="static" data-keyboard="false">
-                            <i class="fas fa-plus-circle fa-3x text-success"></i>
+                            <i class="fas fa-plus-circle fa-3x text-success">Add</i>
                         </a>
                     </div>
                     <!-- Start of create user modal -->
@@ -288,7 +412,7 @@
 
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">
-                                    <button class="btn btn-deep-orange">Sign up</button>
+                                    <button class="btn btn-outline-success">Create</button>
                                 </div>
                             </div>
                         </div>
@@ -342,7 +466,7 @@
 
 </body>
 
-<div class="container-fluid">
+<div>
     <!-- Footer -->
     <footer class="page-footer font-small bg-secondary theme pt-4">
 

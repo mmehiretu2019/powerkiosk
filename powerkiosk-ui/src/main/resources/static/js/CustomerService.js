@@ -78,5 +78,29 @@ function showServingSummary(data){
 }
 
 $(document).ready(function() {
+    //setUpView();
     connect();
 });
+
+function setUpView(){
+    //depending on login status and other states, displays and disables the correct views
+    $('#login-container').removeClass('.hidden');
+    $('#admin-view-container').addClass('.hidden');
+}
+
+function logIn(){
+    showPage('#admin-view-container');
+}
+
+function createAccount(){
+    showPage('#sign-up-container');
+}
+function signUp(){
+    showPage('#admin-view-container');
+}
+
+function showPage(pageId){
+    $('.row').hide();
+    $(pageId).removeClass('d-none');
+    $(pageId).show();
+}
