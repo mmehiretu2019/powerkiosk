@@ -1,4 +1,4 @@
-package com.powerkiosk.dao;
+package com.powerkiosk.service;
 
 import com.powerkiosk.model.ServiceProvider;
 

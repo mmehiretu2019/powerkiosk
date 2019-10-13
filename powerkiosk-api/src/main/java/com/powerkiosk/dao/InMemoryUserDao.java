@@ -1,5 +1,6 @@
 package com.powerkiosk.dao;
 
+import com.powerkiosk.model.SignUpUser;
 import com.powerkiosk.model.User;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,17 @@ public class InMemoryUserDao {
     private Map<String, User> userMap = new HashMap<>();
 
     public User add(User user){
-        String id = UUID.randomUUID().toString();
-        user.setId(id);
+        user.setId(UUID.randomUUID());
 
-        userMap.put(id, user);
+        userMap.put(user.getId().toString(), user);
         return user;
+    }
+
+    public User add(SignUpUser user){
+        User basicUser = new User();
+        basicUser.setEmail(user.getEmail());
+        basicUser.setPassword(user.getPassword());
+
+        return add(basicUser);
     }
 }

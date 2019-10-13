@@ -1,6 +1,6 @@
 package com.powerkiosk.controller;
 
-import com.powerkiosk.dao.CustomerService;
+import com.powerkiosk.service.CustomerService;
 import com.powerkiosk.model.Customer;
 import com.powerkiosk.model.ServingInfo;
 import com.powerkiosk.model.ServingRequest;

@@ -3,6 +3,7 @@ package com.powerkiosk.dao;
 import com.powerkiosk.model.Customer;
 import com.powerkiosk.model.ServingInfo;
 import com.powerkiosk.model.ServingSummary;
+import com.powerkiosk.service.CustomerService;
 import org.springframework.stereotype.Service;
 
 @Service
