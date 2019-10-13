@@ -17,12 +17,12 @@ function connect() {
         });
 
          //Subscribe to topic for general serving info (serving summary)
-        stompClient.subscribe('/topic/servingSummary/' + providerId, function (message) {
+         stompClient.subscribe('/topic/servingSummary/' + providerId, function (message) {
 
             var messageObj = JSON.parse(message.body);
             showServingSummary(messageObj.body);
         });
-    });
+     });
 }
 
 function disconnect() {
@@ -49,23 +49,23 @@ function showServingInfo(data) {
 
     $("#currentServingTable tr").remove();
     $("#currentServingTable").append(
-    '<tr>'+
-           '<th/>'+
-                '</tr>'+
-                    '<tr>'+
-                        '<td>Serving</td>'+
-                    '</tr>'+
-                '<tr>'+
-           '<td>Average Waiting Time: 30 min</td>'+
-    '</tr>'
-    );
+        '<tr>'+
+        '<th/>'+
+        '</tr>'+
+        '<tr>'+
+        '<td>Serving</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td>Average Waiting Time: 30 min</td>'+
+        '</tr>'
+        );
     $.each( data.customerServers, function( key, value ) {
 
         $('#currentServingTable').find('th').eq(value.id - 1).after('<th>Window ' + value.id + '</th>');
         $('#currentServingTable').find('tr').eq(1).find('td').eq(value.id - 1).after('<td>' + value.currentCustomer.lineNumber + '</td>');
         $('#currentServingTable').find('tr').eq(2).find('td').eq(value.id -1).after('<td>20 min</td>');
 
-        });
+    });
 }
 
 function showServingSummary(data){
@@ -78,7 +78,7 @@ function showServingSummary(data){
 }
 
 $(document).ready(function() {
-    //setUpView();
+    showPage(window.location.hash);
     connect();
 });
 
@@ -96,11 +96,35 @@ function createAccount(){
     showPage('#sign-up-container');
 }
 function signUp(){
-    showPage('#admin-view-container');
+     
 }
 
 function showPage(pageId){
+    //check if pageId is valid. If not, show login page by default for now
+    //late on, we might want to show 404
+    pageId = !$(pageId) || pageId.length < 2 ? '#logIn' : pageId;
     $('.row').hide();
     $(pageId).removeClass('d-none');
-    $(pageId).show();
+    window.location.hash=pageId;
+    $(pageId).show('slide', {direction: 'left'}, 5000);
 }
+
+//=====Register Event Listeners
+$(function(){
+    $('#createAccountBtn').click(function(e){
+        e.preventDefault();
+        showPage('#signUp');
+    });
+
+    $('#logInBtn').click(function(e){
+        e.preventDefault();
+        showPage('#main');
+    });
+
+    $('#signUpBtn').click(function(e){
+        e.preventDefault();
+        showPage('#main');
+    });
+
+});
+

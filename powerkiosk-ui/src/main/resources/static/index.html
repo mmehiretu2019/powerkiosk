@@ -16,7 +16,7 @@
 
     <!-- prod mode -->
     <!--    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>-->
-    <script src="js/CustomerService.js"></script>
+    <script type="text/javascript" src="js/CustomerService.js"></script>
 
     <!--    <script src="/webjars/jquery/jquery.min.js"></script>-->
     <!--    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>-->
@@ -46,12 +46,14 @@
 </nav>
 
 <!-- Start of main container -->
-<div class="container-fluid">
+<div>
     <!-- Start of Login form -->
-    <div class="row theme container-fluid bg" id="login-container">
+    <div class="row theme bg" id="logIn">
         <div class="col-sm-5 offset-sm-4 pt-4">
             <form class="form-container">
-                <h1>Please Log in</h1>
+                <div>
+                    <h1>Please Log in</h1>
+                </div>
                 <div class="form-group">
                     <label id="provider-id"><b>Provider ID</b></label>
                     <input class="form-control" type="text" placeholder="Enter Provider ID" required>
@@ -78,10 +80,10 @@
                         <a href="#">Forgot your password?</a>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-success btn-block" onclick="logIn()">Submit</button>
+                <button type="submit" id="logInBtn" class="btn btn-success btn-block">Submit</button>
                 <div class="pt-5">
                     <label>
-                        <a class="lead" href="#" onclick="createAccount()">
+                        <a id="createAccountBtn" class="lead" href="#">
                             Create an account today and try for <strong>free</strong>
                         </a>
                     </label>
@@ -89,18 +91,46 @@
             </form>
         </div>
     </div>
+    <div class="row theme bg d-none" id="signUp">
+        <div class="col-sm-5 offset-sm-4 pt-4">
+            <form class="form-container">
+
+                <div>
+                    <h1>Sign Up</h1>
+                </div>
+                <div class="form-group">
+                    <label id="signUpEmail"><b>Email</b></label>
+                    <input class="form-control" type="email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label id="signUpPassword"><b>Password</b></label>
+                    <input class="form-control" type="password" placeholder="Enter password" required>
+
+                </div>
+                <div class="form-group">
+                    <label id="signUpPassword2"><b>Re-Enter password</b></label>
+                    <input class="form-control" type="password" placeholder="Enter password" required>
+
+                </div>
+                <div class="pb-3">
+                    <button type="button" id="signUpBtn" class="btn btn-outline-info">Sign Up</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
 
     <!--Start of sign up form -->
-    <div class="row container-fluid d-none" id="sign-up-container">
+    <div class="row d-none" id="signUp2">
         <div class="container">
             <h4>Business Information</h4>
             <div>
                 <label>Business Name:</label>
-                <input type="text" id="new-business-name">
+                <input type="text" id="newBusinessName">
             </div>
             <div>
                 <label>Business Logo </label>
-                <input type="file" id="new-logo-file">
+                <input type="file" id="newLogoFile">
             </div>
             <div class="pt-3">
                 <h5>Address</h5>
@@ -108,32 +138,32 @@
             <div class="pl-5 business-address">
                 <div>
                     <label>Street Address</label>
-                    <input type="text" id="new-address1">
+                    <input type="text" id="newAddress1">
                 </div>
 
                 <div>
                     <label>Street Address Line 2</label>
-                    <input type="text" id="new-address2">
+                    <input type="text" id="newAddress2">
                 </div>
 
                 <div>
                     <label>City</label>
-                    <input type="text" id="new-city">
+                    <input type="text" id="newCity">
                 </div>
 
                 <div>
                     <label>State</label>
-                    <input type="text" id="new-state">
+                    <input type="text" id="newState">
                 </div>
 
                 <div>
                     <label>Postal / Zip Code</label>
-                    <input type="text" id="new-zip-code">
+                    <input type="text" id="newZipCode">
                 </div>
 
                 <div>
                     <label>Country</label>
-                    <input type="text" id="new-country">
+                    <input type="text" id="newCountry">
                 </div>
 
             </div>
@@ -143,35 +173,33 @@
             <div class="pl-5 business-contact">
                 <div>
                     <label>First Name</label>
-                    <input  type="text" id="new-first-name">
+                    <input  type="text" id="newFirstName">
                 </div>
 
                 <div>
                     <label>Last Name</label>
-                    <input  type="text" id="new-last-name">
+                    <input  type="text" id="newLastName">
                 </div>
 
                 <div>
                     <label>Email:</label>
-                    <input type="email" id="new-business-email">
+                    <input type="email" id="newBusinessEmail">
                 </div>
 
                 <div>
                     <label>Phone:</label>
-                    <input type="tel" id="new-business-phone">
+                    <input type="tel" id="newBusinessPhone">
                 </div>
 
             </div>
 
-            <div>
-                <button type="button" class="btn btn-outline-success" onclick="signUp()">Submit</button>
-            </div>
+
         </div>
     </div>
     <!--End of sign up form -->
 
     <!-- Start of main view -->
-    <div class="row d-none" id="admin-view-container">
+    <div class="row d-none" id="main">
         <div class="col-2">
             <ul class="nav flex-column bg-dark vertical-nav" id="nav-tab" role="tablist">
                 <li class="nav-item">
@@ -363,7 +391,7 @@
                         </div>
 
                         <div>
-                            <button type="button" class="btn btn-outline-success" onclick="signUp()">Submit</button>
+                            <button type="button" id="submitSettingsBtn" class="btn btn-outline-success">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -373,7 +401,7 @@
                     <h4>User Management</h4>
                     <div>
                         <a class="float-right" data-toggle="modal" data-target="#modalRegisterForm" data-backdrop="static" data-keyboard="false">
-                            <i class="fas fa-plus-circle fa-3x text-success">Add</i>
+                            <i class="fas fa-plus-circle fa-3x text-success"></i>
                         </a>
                     </div>
                     <!-- Start of create user modal -->
