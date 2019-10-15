@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
+@CrossOrigin("*")
 public class UserController {
 
 
@@ -35,5 +36,10 @@ public class UserController {
         String id = userService.add(user);
 
         return new ResponseEntity(id, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getUser(@PathVariable String id){
+        return new ResponseEntity("fakeID", HttpStatus.OK);
     }
 }

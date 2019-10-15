@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @PostConstruct
+    public void testSetUp(){
+        User user = new User();
+        user.setEmail("mmehiretu@gmail.com");
+        user.setPassword("password");
+
+        usersRepository.save(user);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

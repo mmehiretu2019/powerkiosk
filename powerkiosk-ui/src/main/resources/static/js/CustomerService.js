@@ -41,10 +41,6 @@ function getNextNumberInLine(){
     stompClient.send("/app/summary/" + providerId, {}, {});
 }
 
-function login(){
-    window.location.href = "home.html";
-}
-
 function showServingInfo(data) {
 
     $("#currentServingTable tr").remove();
@@ -89,6 +85,7 @@ function setUpView(){
 }
 
 function logIn(){
+
     showPage('#admin-view-container');
 }
 
@@ -96,7 +93,18 @@ function createAccount(){
     showPage('#sign-up-container');
 }
 function signUp(){
-     
+    var userObj = new Object();
+    userObj.email = $('#signUpEmail');
+    userObj.password = $('#signUpPassword');
+
+    $.ajax({type: 'POST',
+        url: 'http://localhost:8080/users',
+        data: JSON.stringify(userObj),
+        contentType: 'application/json',
+        success: function (data, status){
+            console.log("Data: " + data + ", Status: " + status);
+            showPage('#main');
+        }});
 }
 
 function showPage(pageId){
@@ -106,7 +114,7 @@ function showPage(pageId){
     $('.row').hide();
     $(pageId).removeClass('d-none');
     window.location.hash=pageId;
-    $(pageId).show('slide', {direction: 'left'}, 5000);
+    $(pageId).show();
 }
 
 //=====Register Event Listeners
@@ -123,7 +131,7 @@ $(function(){
 
     $('#signUpBtn').click(function(e){
         e.preventDefault();
-        showPage('#main');
+        signUp();
     });
 
 });

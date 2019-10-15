@@ -19,32 +19,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.userDetailsService(userDetailsService)
-        .passwordEncoder(new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
+                .passwordEncoder(new PasswordEncoder() {
+                    @Override
+                    public String encode(CharSequence charSequence) {
+                        return charSequence.toString();
+                    }
 
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return true;
-            }
-        });
-//                .inMemoryAuthentication()
-//                .withUser("user")
-//                .password("password")
-//                .roles("USER")
-//                .and()
-//                .withUser("admin")
-//                .password("admin")
-//                .roles("USER", "ADMIN");
+                    @Override
+                    public boolean matches(CharSequence userPassword, String storedPassword) {
+                        return userPassword.equals(storedPassword);
+                    }
+                });
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests()
-                .antMatchers("/customerService/**")
+        http.cors().and()//check cors first
+                .authorizeRequests()
+                .antMatchers("/users/**")
                 .authenticated()
                 .anyRequest()
                 .permitAll()
