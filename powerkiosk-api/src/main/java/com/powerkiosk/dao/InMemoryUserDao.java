@@ -1,7 +1,7 @@
 package com.powerkiosk.dao;
 
 import com.powerkiosk.model.SignUpUser;
-import com.powerkiosk.model.User;
+import com.powerkiosk.model.persist.User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

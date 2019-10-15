@@ -3,7 +3,7 @@ package com.powerkiosk.service;
 import com.powerkiosk.dao.UsersRepository;
 import com.powerkiosk.model.CustomUserDetails;
 import com.powerkiosk.model.SignUpUser;
-import com.powerkiosk.model.User;
+import com.powerkiosk.model.persist.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

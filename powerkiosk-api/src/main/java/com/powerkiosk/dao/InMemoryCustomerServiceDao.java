@@ -1,7 +1,7 @@
 package com.powerkiosk.dao;
 
-import com.powerkiosk.model.Customer;
-import com.powerkiosk.model.CustomerServer;
+import com.powerkiosk.model.persist.Customer;
+import com.powerkiosk.model.persist.CustomerServer;
 import com.powerkiosk.model.ServingInfo;
 import com.powerkiosk.model.ServingSummary;
 
@@ -44,7 +44,7 @@ public class InMemoryCustomerServiceDao {
         //get next number in the line and assign
         long nextNumber = ++lineNumber;
         customer.setLineNumber(nextNumber);
-        customer.setId(nextNumber);
+        customer.setId(UUID.randomUUID());
         customer.setArrivalDate(OffsetDateTime.now(UTC));
         //add to the queue
         customerLine.add(customer);
@@ -61,7 +61,7 @@ public class InMemoryCustomerServiceDao {
                     .filter(c -> c.getServiceCompleteDate() == null)
                     .findAny()
                     .get();
-            servers.add(new CustomerServer(serverId, currCustomer));
+            servers.add(new CustomerServer(UUID.randomUUID(), currCustomer));
         }
         //sort servers by id
         servers.stream().sorted();

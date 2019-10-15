@@ -1,3 +1,5 @@
+//GLOBAL VARIABLES
+var isServing = false;
 var stompClient = null;
 //use browser name as providerId for now. Later, it will be actual provider id
 var providerId = navigator.productSub;
@@ -75,6 +77,7 @@ function showServingSummary(data){
 
 $(document).ready(function() {
     showPage(window.location.hash);
+    showServingPage(isServing);
     connect();
 });
 
@@ -85,8 +88,8 @@ function setUpView(){
 }
 
 function logIn(){
-
-    showPage('#admin-view-container');
+    getNextCustomer();
+    showPage('#main');
 }
 
 function createAccount(){
@@ -103,8 +106,17 @@ function signUp(){
         contentType: 'application/json',
         success: function (data, status){
             console.log("Data: " + data + ", Status: " + status);
-            showPage('#main');
+            showPage('#logIn');
         }});
+}
+
+function startServing(){
+    //send serving info
+    var customerServer = new Object();
+    customerServer.stationId = $('#servingStationId');
+    stompClient.send("/customerService/" + providerId + "/serve", {}, JSON.stringify(customerServer));
+    isServing = true;
+    showServingPage(isServing);
 }
 
 function showPage(pageId){
@@ -117,6 +129,13 @@ function showPage(pageId){
     $(pageId).show();
 }
 
+function showServingPage(serving){
+    if(serving){
+        $('#startServingModal').hide();
+        $('#serving').show();
+    }
+}
+
 //=====Register Event Listeners
 $(function(){
     $('#createAccountBtn').click(function(e){
@@ -126,12 +145,17 @@ $(function(){
 
     $('#logInBtn').click(function(e){
         e.preventDefault();
-        showPage('#main');
+        logIn();
     });
 
     $('#signUpBtn').click(function(e){
         e.preventDefault();
         signUp();
+    });
+
+    $('#startServingStartBtn').click(function(e){
+        e.preventDefault();
+        startServing();
     });
 
 });

@@ -1,6 +1,6 @@
 package com.powerkiosk.dao;
 
-import com.powerkiosk.model.User;
+import com.powerkiosk.model.persist.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

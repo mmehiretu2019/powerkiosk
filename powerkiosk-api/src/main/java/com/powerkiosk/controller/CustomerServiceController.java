@@ -1,10 +1,10 @@
 package com.powerkiosk.controller;
 
-import com.powerkiosk.service.CustomerService;
-import com.powerkiosk.model.Customer;
+import com.powerkiosk.model.*;
+import com.powerkiosk.model.persist.Customer;
+import com.powerkiosk.model.persist.CustomerServer;
 import com.powerkiosk.model.ServingInfo;
-import com.powerkiosk.model.ServingRequest;
-import com.powerkiosk.model.ServingSummary;
+import com.powerkiosk.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +26,16 @@ public class CustomerServiceController {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
+
+    @MessageMapping("/customerService/{providerId}/serve")
+    @SendTo("/topic/servingInfo/{providerId}")
+    public void startServing(@DestinationVariable String providerId, CustomerServer server){
+
+        ServingInfo servingInfo = customerService.getCurrentServingInfo();
+        messagingTemplate.convertAndSend("/topic/servingInfo/" + providerId, new ResponseEntity<>(servingInfo, HttpStatus.OK));
+
+    }
 
     @GetMapping("/currentServingInfo")
     public ResponseEntity getCurrentServingInfo() {
@@ -60,7 +70,7 @@ public class CustomerServiceController {
     @SendTo("/topic/servingSummary/{providerId}")
     public ResponseEntity getNextNumberInLine(){
 
-        customerService.addCustomer(new Customer(-1, -1));
+        customerService.addCustomer(new Customer(null, -1));
         ServingSummary summary = customerService.getServingSummary();
         if(summary != null){
 
@@ -75,7 +85,7 @@ public class CustomerServiceController {
     @PostConstruct
     public void init(){
         for(int i = 1; i < 100; i++){
-            customerService.addCustomer(new Customer(i, -1));
+            customerService.addCustomer(new Customer(null, -1));
         }
     }
 }

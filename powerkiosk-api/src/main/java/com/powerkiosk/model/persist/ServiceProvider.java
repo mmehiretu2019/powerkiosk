@@ -1,6 +1,9 @@
-package com.powerkiosk.model;
+package com.powerkiosk.model.persist;
 
-public class ServiceProvider extends User{
+import javax.persistence.Entity;
+
+@Entity
+public class ServiceProvider extends User {
 
     private String name;
     private String logoFilePath;

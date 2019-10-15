@@ -275,11 +275,11 @@
                         </div>
 
                     </div>
-                    <div class="start-serving">
-                        <div>
+                    <div>
+                        <div id="startServingModal">
                             <div>
-                                <a data-toggle="modal" data-target="#modalStartServingForm" data-backdrop="static" data-keyboard="false">
-                                    <button class="btn btn-outline-success" type="button">Start Serving</button>
+                                <a data-toggle="modal" data-target="#modalStartServingForm">
+                                    <button id="startServingBtn" class="btn btn-outline-success" type="button">Start Serving</button>
                                 </a>
                             </div>                            <!--Start of start serving modal-->
                             <div class="modal fade" id="modalStartServingForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -294,18 +294,17 @@
                                         </div>
                                         <div class="modal-body mx-3">
                                             <div class="md-form mb-2">
-                                                <label data-error="wrong" data-success="right" for="new-user-first-name">Serving Station</label>
-                                                <input type="text" id="serving-station-id" class="form-control validate">
+                                                <label data-error="wrong" data-success="right" for="servingStationId">Serving Station</label>
+                                                <input type="text" id="servingStationId" class="form-control validate">
                                             </div>
 
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center">
-                                            <button class="btn btn-outline-success" data-toggle="collapse" href="#serving">Start</button>
+                                            <button id="startServingStartBtn" class="btn btn-outline-success" data-dismiss="modal">Start</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <!--End of starting serving modal-->
                         </div>
                         <div id="serving" class="collapse">

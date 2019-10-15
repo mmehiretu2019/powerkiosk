@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
-@CrossOrigin("*")
 public class UserController {
 
 

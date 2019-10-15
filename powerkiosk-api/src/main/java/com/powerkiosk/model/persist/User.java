@@ -1,4 +1,4 @@
-package com.powerkiosk.model;
+package com.powerkiosk.model.persist;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

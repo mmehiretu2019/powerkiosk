@@ -1,6 +1,6 @@
 package com.powerkiosk.service;
 
-import com.powerkiosk.model.ServiceProvider;
+import com.powerkiosk.model.persist.ServiceProvider;
 
 public interface ServiceProviderService {
 

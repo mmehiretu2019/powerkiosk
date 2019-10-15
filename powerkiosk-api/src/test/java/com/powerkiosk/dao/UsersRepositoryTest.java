@@ -1,19 +1,13 @@
 package com.powerkiosk.dao;
 
-import com.powerkiosk.model.User;
+import com.powerkiosk.model.persist.User;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class UsersRepositoryTest {
+public class UsersRepositoryTest extends AbstractRepositoryTest{
 
     @Autowired
     private UsersRepository usersRepository;
@@ -32,9 +26,6 @@ public class UsersRepositoryTest {
         }
         //get records
         List<User> users = usersRepository.findAll();
-
-        //verify
-        assertEquals(total, users.size());
 
         users.stream().forEach(u -> System.out.println(u.getId()));
     }

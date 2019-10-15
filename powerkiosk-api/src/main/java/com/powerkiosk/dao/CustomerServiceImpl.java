@@ -1,10 +1,13 @@
 package com.powerkiosk.dao;
 
-import com.powerkiosk.model.Customer;
+import com.powerkiosk.model.persist.Customer;
+import com.powerkiosk.model.persist.CustomerServer;
 import com.powerkiosk.model.ServingInfo;
 import com.powerkiosk.model.ServingSummary;
 import com.powerkiosk.service.CustomerService;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -26,5 +29,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public ServingSummary getServingSummary() {
         return customerServiceDao.getServingSummary();
+    }
+
+    @Override
+    public String addCustomerServer(CustomerServer server) {
+        String id = UUID.randomUUID().toString();
+        return id;
     }
 }

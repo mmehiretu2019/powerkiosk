@@ -1,6 +1,6 @@
 package com.powerkiosk.dao;
 
-import com.powerkiosk.model.ServiceProvider;
+import com.powerkiosk.model.persist.ServiceProvider;
 import com.powerkiosk.service.ServiceProviderService;
 import org.springframework.stereotype.Service;
 

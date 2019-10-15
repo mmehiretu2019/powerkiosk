@@ -1,5 +1,7 @@
 package com.powerkiosk.model;
 
+import com.powerkiosk.model.persist.CustomerServer;
+
 import java.util.List;
 
 public class ServingInfo {
