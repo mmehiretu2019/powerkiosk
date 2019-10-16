@@ -5,15 +5,17 @@ import com.powerkiosk.model.persist.CustomerServer;
 import com.powerkiosk.model.ServingInfo;
 import com.powerkiosk.model.ServingSummary;
 
+import java.util.Optional;
+
 public interface CustomerService {
 
-    Customer getNextCustomer(int serverId);
+    Optional<Customer> getNextCustomer(String providerId, String serverId);
 
     Customer addCustomer(Customer customer);
 
-    ServingInfo getCurrentServingInfo();
+    ServingInfo getCurrentServingInfo(String providerId);
 
-    ServingSummary getServingSummary();
+    ServingSummary getServingSummary(String providerId);
 
-    String addCustomerServer(CustomerServer server);
+    CustomerServer addCustomerServer(CustomerServer server);
 }

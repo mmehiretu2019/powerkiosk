@@ -27,7 +27,7 @@ public class CustomerRepositoryTest extends AbstractRepositoryTest{
 
         int total = 10;
         for(int i = 0; i < total; i++){
-            Customer customer = new Customer(UUID.randomUUID(), i);
+            Customer customer = new Customer(UUID.randomUUID().toString(), i);
             customer.setServiceProvider(provider);
             customerRepository.save(customer);
         }

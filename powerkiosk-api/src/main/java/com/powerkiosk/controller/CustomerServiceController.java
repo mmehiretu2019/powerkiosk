@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 @Controller
 public class CustomerServiceController {
@@ -31,15 +32,15 @@ public class CustomerServiceController {
     @MessageMapping("/customerService/{providerId}/serve")
     @SendTo("/topic/servingInfo/{providerId}")
     public void startServing(@DestinationVariable String providerId, CustomerServer server){
-
-        ServingInfo servingInfo = customerService.getCurrentServingInfo();
+        customerService.addCustomerServer(server);
+        ServingInfo servingInfo = customerService.getCurrentServingInfo(providerId);
         messagingTemplate.convertAndSend("/topic/servingInfo/" + providerId, new ResponseEntity<>(servingInfo, HttpStatus.OK));
 
     }
 
     @GetMapping("/currentServingInfo")
     public ResponseEntity getCurrentServingInfo() {
-        ServingInfo currentServingInfo = customerService.getCurrentServingInfo();
+        ServingInfo currentServingInfo = customerService.getCurrentServingInfo(null);
 
         if(currentServingInfo != null){
             return new ResponseEntity(currentServingInfo, HttpStatus.OK);
@@ -51,13 +52,13 @@ public class CustomerServiceController {
     @MessageMapping("/info/{providerId}")
     @SendTo("/topic/servingInfo/{providerId}")
     public ResponseEntity getNextCustomer(@DestinationVariable String providerId, ServingRequest request){
-        Customer nextCustomer = customerService.getNextCustomer(request.getServerId());
+        Optional<Customer> nextCustomer = customerService.getNextCustomer(providerId, String.valueOf(request.getServerId()));
 
-        if(nextCustomer != null){
-            ServingInfo servingInfo = customerService.getCurrentServingInfo();
+        if(nextCustomer.isPresent()){
+            ServingInfo servingInfo = customerService.getCurrentServingInfo(providerId);
 
             //send summary message
-            ServingSummary summary = customerService.getServingSummary();
+            ServingSummary summary = customerService.getServingSummary(providerId);
             messagingTemplate.convertAndSend("/topic/servingSummary/" + providerId, new ResponseEntity<>(summary, HttpStatus.OK));
 
             return new ResponseEntity(servingInfo, HttpStatus.OK);
@@ -71,7 +72,7 @@ public class CustomerServiceController {
     public ResponseEntity getNextNumberInLine(){
 
         customerService.addCustomer(new Customer(null, -1));
-        ServingSummary summary = customerService.getServingSummary();
+        ServingSummary summary = customerService.getServingSummary(null);
         if(summary != null){
 
             return new ResponseEntity(summary, HttpStatus.OK);
@@ -81,11 +82,11 @@ public class CustomerServiceController {
     }
 
 
-    //set up in memory test database
-    @PostConstruct
-    public void init(){
-        for(int i = 1; i < 100; i++){
-            customerService.addCustomer(new Customer(null, -1));
-        }
-    }
+//    //set up in memory test database
+//    @PostConstruct
+//    public void init(){
+//        for(int i = 1; i < 100; i++){
+//            customerService.addCustomer(new Customer(null, -1));
+//        }
+//    }
 }

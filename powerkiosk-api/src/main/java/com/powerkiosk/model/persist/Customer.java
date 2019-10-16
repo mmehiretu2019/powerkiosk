@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import java.time.OffsetDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 public class Customer extends BaseEntity{
@@ -21,7 +20,7 @@ public class Customer extends BaseEntity{
 
     }
 
-    public Customer(UUID id, long lineNumber){
+    public Customer(String id, long lineNumber){
         setId(id);
         this.lineNumber = lineNumber;
     }

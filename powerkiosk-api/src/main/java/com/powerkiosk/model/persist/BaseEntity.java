@@ -7,18 +7,21 @@ import java.util.UUID;
 public class BaseEntity {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "service_provider_id", referencedColumnName = "id", nullable = false)
-    private ServiceProvider serviceProvider;
-
-    public UUID getId() {
-        return id;
+    public BaseEntity(){
+        this.id = UUID.randomUUID().toString();
     }
 
-    public void setId(UUID id) {
+    @ManyToOne
+    @JoinColumn(name = "provider_id", referencedColumnName = "id", nullable = false)
+    private ServiceProvider serviceProvider;
+
+    public String getId() {
+        return UUID.randomUUID().toString();
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 public class CustomerServer extends BaseEntity {
@@ -21,7 +20,7 @@ public class CustomerServer extends BaseEntity {
 
     }
 
-    public CustomerServer(UUID id, Customer customer){
+    public CustomerServer(String id, Customer customer){
         setId(id);
         this.currentCustomer = customer;
     }
