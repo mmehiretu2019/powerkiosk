@@ -18,7 +18,7 @@ public class BaseEntity {
     private ServiceProvider serviceProvider;
 
     public String getId() {
-        return UUID.randomUUID().toString();
+        return this.id;
     }
 
     public void setId(String id) {

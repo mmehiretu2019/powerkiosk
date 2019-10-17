@@ -80,13 +80,4 @@ public class CustomerServiceController {
 
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
-
-
-//    //set up in memory test database
-//    @PostConstruct
-//    public void init(){
-//        for(int i = 1; i < 100; i++){
-//            customerService.addCustomer(new Customer(null, -1));
-//        }
-//    }
 }

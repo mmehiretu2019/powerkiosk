@@ -88,8 +88,18 @@ function setUpView(){
 }
 
 function logIn(){
-    getNextCustomer();
-    showPage('#main');
+    var userObj = new Object();
+    userObj.username = $('#logInUsername');
+    userObj.password = $('#logInPassword');
+
+    $.ajax({type: 'POST',
+        url: 'http://localhost:8080/session',
+        data: JSON.stringify(userObj),
+        contentType: 'application/json',
+        success: function (data, status){
+            console.log("Data: " + data + ", Status: " + status);
+            showPage('#main');
+        }});
 }
 
 function createAccount(){

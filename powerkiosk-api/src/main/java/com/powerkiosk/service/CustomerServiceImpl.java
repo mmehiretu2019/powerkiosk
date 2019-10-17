@@ -26,18 +26,26 @@ public class CustomerServiceImpl implements CustomerService {
 
     public Optional<Customer> getNextCustomer(String providerId, String serverId) {
 
+        Optional<Customer> nextCustomer = Optional.empty();
+
         //Get the current customer being served by this server and complete the service
         Optional<CustomerServer> server = serverRepository.findById(providerId);
-        Customer currentCustomer = server.get().getCurrentCustomer();
-        currentCustomer.setServiceCompleteDate(OffsetDateTime.now(UTC));
-        serverRepository.save(server.get());
 
-        //Get next customer
-        Optional<Customer> nextCustomer = customerRepository.findTopByOrderByArrivalDateAsc();
-        if(nextCustomer.isPresent()){
-            Customer customer = nextCustomer.get();
-            customer.setCustomerServer(server.get());
-            customerRepository.save(customer);
+        if(server.isPresent()) {
+            Customer currentCustomer = server.get().getCurrentCustomer();
+
+            if(currentCustomer != null) {
+                currentCustomer.setServiceCompleteDate(OffsetDateTime.now(UTC));
+                serverRepository.save(server.get());
+            }
+
+            //Get next customer
+            nextCustomer = customerRepository.findTopByOrderByArrivalDateAsc();
+            if (nextCustomer.isPresent()) {
+                Customer customer = nextCustomer.get();
+                customer.setCustomerServer(server.get());
+                customerRepository.save(customer);
+            }
         }
 
         return nextCustomer;
