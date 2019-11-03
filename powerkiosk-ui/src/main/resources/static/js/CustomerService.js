@@ -78,7 +78,7 @@ function showServingSummary(data){
 $(document).ready(function() {
     showPage(window.location.hash);
     showServingPage(isServing);
-    connect();
+    //connect();
 });
 
 function setUpView(){
@@ -89,17 +89,23 @@ function setUpView(){
 
 function logIn(){
     var userObj = new Object();
-    userObj.username = $('#logInUsername');
-    userObj.password = $('#logInPassword');
+    userObj.username = $('#logInUsername').val();
+    userObj.password = $('#logInPassword').val();
 
     $.ajax({type: 'POST',
-        url: 'http://localhost:8080/session',
+        url: 'http://localhost:8080/spring-security-rest/login',
         data: JSON.stringify(userObj),
         contentType: 'application/json',
-        success: function (data, status){
-            console.log("Data: " + data + ", Status: " + status);
-            showPage('#main');
-        }});
+        statusCode: { 
+            200: {
+                function (data, status){
+
+                    connect();
+                    console.log("Data: " + data + ", Status: " + status);
+                    showPage('#main');
+                }
+
+            }}});
 }
 
 function createAccount(){
@@ -114,10 +120,11 @@ function signUp(){
         url: 'http://localhost:8080/users',
         data: JSON.stringify(userObj),
         contentType: 'application/json',
-        success: function (data, status){
-            console.log("Data: " + data + ", Status: " + status);
-            showPage('#logIn');
-        }});
+        statusCode: {
+            200: function (){
+                console.log("Data: " + data + ", Status: " + status);
+                showPage('#logIn');
+            }}});
 }
 
 function startServing(){

@@ -68,6 +68,19 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!-- Websocket security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-messaging</artifactId>
+        </dependency>
+
+        <!-- Oauth2 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+            <version>2.1.8.RELEASE</version>
+        </dependency>
+
         <!-- jpa-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
