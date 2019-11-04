@@ -1,138 +1,138 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/main-layout.css">
-    <link rel="stylesheet" href="css/login.css">
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="js/CustomerService.js"></script>
-</head>
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <link rel="stylesheet" href="css/main-layout.css">-->
+<!--    <link rel="stylesheet" href="css/login.css">-->
+<!--    <script src="/webjars/sockjs-client/sockjs.min.js"></script>-->
+<!--    <script src="/webjars/stomp-websocket/stomp.min.js"></script>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+<!--    <script src="js/CustomerService.js"></script>-->
+<!--</head>-->
 
-<section class="header">
-    <h2>Welcome to the Power Kiosk - Admin Registration Page</h2>
-</section>
+<!--<section class="header">-->
+<!--    <h2>Welcome to the Power Kiosk - Admin Registration Page</h2>-->
+<!--</section>-->
 
-<section id="signup-login">
+<!--<section id="signup-login">-->
 
-    <section class="btn-toggle">
-        <button class="btn-link btn-style-1" onclick="signUpOrLogin(event, 'signup-section')" id="defaultOpen">Sign Up</button>
-        <button class="btn-link btn-style-1" onclick="signUpOrLogin(event, 'login-section')">Log In</button>
-    </section>
-    <section id="login-section" class="container">
-        <h1>Log in</h1>
-        <hr>
+<!--    <section class="btn-toggle">-->
+<!--        <button class="btn-link btn-style-1" onclick="signUpOrLogin(event, 'signup-section')" id="defaultOpen">Sign Up</button>-->
+<!--        <button class="btn-link btn-style-1" onclick="signUpOrLogin(event, 'login-section')">Log In</button>-->
+<!--    </section>-->
+<!--    <section id="login-section" class="container">-->
+<!--        <h1>Log in</h1>-->
+<!--        <hr>-->
 
-        <label id="provider-id"><b>Provider ID</b></label>
-        <input type="text" placeholder="Enter Provider ID" required>
+<!--        <label id="provider-id"><b>Provider ID</b></label>-->
+<!--        <input type="text" placeholder="Enter Provider ID" required>-->
 
-        <label id="username"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
+<!--        <label id="username"><b>Email</b></label>-->
+<!--        <input type="text" placeholder="Enter Email" name="email" required>-->
 
-        <label id="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+<!--        <label id="password"><b>Password</b></label>-->
+<!--        <input type="password" placeholder="Enter Password" name="psw" required>-->
 
-        <button type="button" class="btn-style-1" onclick="login()">Log in</button>
+<!--        <button type="button" class="btn-style-1" onclick="login()">Log in</button>-->
 
-        <div class="container signin">
-            <p>Forgot password? <a href="#">Reset password</a>.</p>
-        </div>
-    </section>
+<!--        <div class="container signin">-->
+<!--            <p>Forgot password? <a href="#">Reset password</a>.</p>-->
+<!--        </div>-->
+<!--    </section>-->
 
-    <section id="signup-section" class="container">
-        <h2>Business Information</h2>
-        <br/>
-        <label>Business Name:</label>
-        <input type="text" id="business-name">
+<!--    <section id="signup-section" class="container">-->
+<!--        <h2>Business Information</h2>-->
+<!--        <br/>-->
+<!--        <label>Business Name:</label>-->
+<!--        <input type="text" id="business-name">-->
 
-        <br/>
-        <label>Business Contact:</label>
+<!--        <br/>-->
+<!--        <label>Business Contact:</label>-->
 
-        <label>First Name</label>
-        <input type="text" id="first-name">
+<!--        <label>First Name</label>-->
+<!--        <input type="text" id="first-name">-->
 
-        <label>Last Name</label>
-        <input type="text" id="last-name">
+<!--        <label>Last Name</label>-->
+<!--        <input type="text" id="last-name">-->
 
-        <br/>
-        <label>Email:</label>
-        <input type="email" id="business-email">
+<!--        <br/>-->
+<!--        <label>Email:</label>-->
+<!--        <input type="email" id="business-email">-->
 
-        <br/>
-        <label>Phone:</label>
-        <input type="tel" id="business-phone">
+<!--        <br/>-->
+<!--        <label>Phone:</label>-->
+<!--        <input type="tel" id="business-phone">-->
 
-        <br/>
-        <label>Address:</label>
+<!--        <br/>-->
+<!--        <label>Address:</label>-->
 
-        <br/>
-        <label>Street Address</label>
-        <input type="text" id="address1">
-
-
-        <br/>
-        <label>Street Address Line 2</label>
-        <input type="text" id="address2">
-
-        <br/>
-        <label>City</label>
-        <input type="text" id="city">
-
-        <br/>
-        <label>State</label>
-        <input type="text" id="state">
-
-        <br/>
-        <label>Postal / Zip Code</label>
-        <input type="text" id="zip-code">
-
-        <br/>
-        <label>Country</label>
-        <input type="text" id="country">
-
-        <br/>
-        <label>Business Logo:</label>
-        <input type="file" id="logo-file">
-
-        <button type="button" class="btn-style-1" onclick="signUp()">Sign Up</button>
-    </section>
-
-    <script>
-        function signUpOrLogin(evt, btnId) {
-
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("container");
-
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-
-            tablinks = document.getElementsByClassName("btn-link");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(btnId).style.display = "block";
-            evt.currentTarget.className += " active";
-    }
-
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
-    </script>
+<!--        <br/>-->
+<!--        <label>Street Address</label>-->
+<!--        <input type="text" id="address1">-->
 
 
-</section>
+<!--        <br/>-->
+<!--        <label>Street Address Line 2</label>-->
+<!--        <input type="text" id="address2">-->
 
-<!-- Footer -->
-<footer class="footer">
-    <a href="#"><i class="fa fa-facebook-official"></i></a>
-    <a href="#"><i class="fa fa-pinterest-p"></i></a>
-    <a href="#"><i class="fa fa-twitter"></i></a>
-    <a href="#"><i class="fa fa-flickr"></i></a>
-    <a href="#"><i class="fa fa-linkedin"></i></a>
-    <p class="w3-medium">
-        Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-    </p>
-</footer>
-</html>
+<!--        <br/>-->
+<!--        <label>City</label>-->
+<!--        <input type="text" id="city">-->
+
+<!--        <br/>-->
+<!--        <label>State</label>-->
+<!--        <input type="text" id="state">-->
+
+<!--        <br/>-->
+<!--        <label>Postal / Zip Code</label>-->
+<!--        <input type="text" id="zip-code">-->
+
+<!--        <br/>-->
+<!--        <label>Country</label>-->
+<!--        <input type="text" id="country">-->
+
+<!--        <br/>-->
+<!--        <label>Business Logo:</label>-->
+<!--        <input type="file" id="logo-file">-->
+
+<!--        <button type="button" class="btn-style-1" onclick="signUp()">Sign Up</button>-->
+<!--    </section>-->
+
+<!--    <script>-->
+<!--        function signUpOrLogin(evt, btnId) {-->
+
+<!--            var i, tabcontent, tablinks;-->
+<!--            tabcontent = document.getElementsByClassName("container");-->
+
+<!--            for (i = 0; i < tabcontent.length; i++) {-->
+<!--                tabcontent[i].style.display = "none";-->
+<!--            }-->
+
+<!--            tablinks = document.getElementsByClassName("btn-link");-->
+<!--            for (i = 0; i < tablinks.length; i++) {-->
+<!--                tablinks[i].className = tablinks[i].className.replace(" active", "");-->
+<!--            }-->
+<!--            document.getElementById(btnId).style.display = "block";-->
+<!--            evt.currentTarget.className += " active";-->
+<!--    }-->
+
+<!--// Get the element with id="defaultOpen" and click on it-->
+<!--document.getElementById("defaultOpen").click();-->
+<!--    </script>-->
+
+
+<!--</section>-->
+
+<!--&lt;!&ndash; Footer &ndash;&gt;-->
+<!--<footer class="footer">-->
+<!--    <a href="#"><i class="fa fa-facebook-official"></i></a>-->
+<!--    <a href="#"><i class="fa fa-pinterest-p"></i></a>-->
+<!--    <a href="#"><i class="fa fa-twitter"></i></a>-->
+<!--    <a href="#"><i class="fa fa-flickr"></i></a>-->
+<!--    <a href="#"><i class="fa fa-linkedin"></i></a>-->
+<!--    <p class="w3-medium">-->
+<!--        Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>-->
+<!--    </p>-->
+<!--</footer>-->
+<!--</html>-->

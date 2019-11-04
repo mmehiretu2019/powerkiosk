@@ -4,12 +4,16 @@ var stompClient = null;
 var AUTH_URL = "http://localhost:8080/oauth/token";
 var AUTH_CLIENT_ID = "clientapp";
 var AUTH_CLIENT_SECRET = "123456";
+var WEB_SOCKET_BASE_URL = "http://localhost:8080/gs-guide-websocket";
+
+var accessToken = null;
 
 //use browser name as providerId for now. Later, it will be actual provider id
 var providerId = navigator.productSub;
 
 function connect() {
-    var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+    var endpoint = WEB_SOCKET_BASE_URL + '?access_token=' + accessToken;
+    var socket = new SockJS(endpoint);
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
@@ -104,11 +108,18 @@ function logIn(){
         type: 'POST',
         url: AUTH_URL,
         data: $.param(userObj),
-        success: function( data, textStatus, jQxhr ){
-            console.log("Data: "+ JSON.parse(data) + ", textStatus: " + textStatus + ", jQxhr: " + jQxhr);
+        success: function(data, textStatus, jQxhr ){
+            console.log("Data: "+ data.access_token + ", textStatus: " + textStatus + ", jQxhr: " + jQxhr.status);
+            if(jQxhr.status == 200){
+                accessToken = data.access_token;
+                //connect to websocket
+                connect();
+                showPage('#main');
+            }
         },
         error: function( jqXhr, textStatus, errorThrown ){
-            console.log( errorThrown );
+            console.log("Invlid credentials");
+            $('#invalidCredentialText').removeClass('d-none');
         }
     });
 }
