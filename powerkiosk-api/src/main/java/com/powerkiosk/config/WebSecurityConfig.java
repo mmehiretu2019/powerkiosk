@@ -22,18 +22,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-//        auth.userDetailsService(userDetailsService)
-//                .passwordEncoder(passwordEncoder());
-        auth.inMemoryAuthentication()
-                .withUser("humptydumpty").password(passwordEncoder().encode("123456")).roles("USER");
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(passwordEncoder())
+//                .withUser("humptydumpty").password(passwordEncoder().encode("123456")).roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable();
+        http.cors().and()//check cors first
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/oauth/authorize**", "/login**", "/error**")
+                .antMatchers("/oauth/authorize**", "/login**", "/static/**", "/error**")
                 .permitAll()
                 .and()
                 .authorizeRequests()
