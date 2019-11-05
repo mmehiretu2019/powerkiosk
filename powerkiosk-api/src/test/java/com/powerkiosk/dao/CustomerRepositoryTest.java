@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,7 +26,7 @@ public class CustomerRepositoryTest extends AbstractRepositoryTest{
 
         int total = 10;
         for(int i = 0; i < total; i++){
-            Customer customer = new Customer(UUID.randomUUID().toString(), i);
+            Customer customer = new Customer(i);
             customer.setServiceProvider(provider);
             customerRepository.save(customer);
         }

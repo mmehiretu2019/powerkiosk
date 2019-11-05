@@ -5,11 +5,9 @@ var AUTH_URL = "http://localhost:8080/oauth/token";
 var AUTH_CLIENT_ID = "clientapp";
 var AUTH_CLIENT_SECRET = "123456";
 var WEB_SOCKET_BASE_URL = "http://localhost:8080/gs-guide-websocket";
+var providerId = null;
 
 var accessToken = null;
-
-//use browser name as providerId for now. Later, it will be actual provider id
-var providerId = navigator.productSub;
 
 function connect() {
     var endpoint = WEB_SOCKET_BASE_URL + '?access_token=' + accessToken;
@@ -113,6 +111,7 @@ function logIn(){
             if(jQxhr.status == 200){
                 accessToken = data.access_token;
                 //connect to websocket
+                providerId = $('#providerId').val();
                 connect();
                 showPage('#main');
             }

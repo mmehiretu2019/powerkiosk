@@ -12,7 +12,7 @@ import static org.springframework.messaging.simp.SimpMessageType.*;
 
 @Configuration
 @EnableWebSocketMessageBroker
-//@Order(1)
+@Order(1)//It is very important that the order is set to 1 here so that this configuration is loaded first in the security chain
 public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer  {
 
     @Override

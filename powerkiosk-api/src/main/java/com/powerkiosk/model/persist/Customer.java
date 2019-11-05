@@ -1,6 +1,7 @@
 package com.powerkiosk.model.persist;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.OneToOne;
 import java.time.OffsetDateTime;
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.Objects;
 @Entity
 public class Customer extends BaseEntity{
 
+    @GeneratedValue
     private long lineNumber;
     @OneToOne(mappedBy = "currentCustomer")
     private CustomerServer customerServer;
@@ -20,8 +22,7 @@ public class Customer extends BaseEntity{
 
     }
 
-    public Customer(String id, long lineNumber){
-        setId(id);
+    public Customer(long lineNumber){
         this.lineNumber = lineNumber;
     }
 

@@ -4,19 +4,28 @@ import com.powerkiosk.model.*;
 import com.powerkiosk.model.persist.Customer;
 import com.powerkiosk.model.persist.CustomerServer;
 import com.powerkiosk.model.ServingInfo;
+import com.powerkiosk.model.persist.ServiceProvider;
 import com.powerkiosk.service.CustomerService;
+import com.powerkiosk.service.ServiceProviderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.support.ErrorMessage;
+import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class CustomerServiceController {
@@ -26,7 +35,12 @@ public class CustomerServiceController {
     private CustomerService customerService;
 
     @Autowired
+    private ServiceProviderService providerService;
+
+    @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
+    private Logger log = LoggerFactory.getLogger(getClass());
 
 
     @MessageMapping("/customerService/{providerId}/serve")
@@ -69,15 +83,32 @@ public class CustomerServiceController {
 
     @MessageMapping("/summary/{providerId}")
     @SendTo("/topic/servingSummary/{providerId}")
-    public ResponseEntity getNextNumberInLine(){
+    public Message getNextNumberInLine(@DestinationVariable String providerId){
 
-        customerService.addCustomer(new Customer(null, -1));
-        ServingSummary summary = customerService.getServingSummary(null);
-        if(summary != null){
+        Optional<ServiceProvider> provider = providerService.findProviderById(providerId);
 
-            return new ResponseEntity(summary, HttpStatus.OK);
+        if(provider.isPresent()){
+            Customer customer = new Customer();
+            customer.setServiceProvider(provider.get());
+
+            customerService.addCustomer(customer);
+            ServingSummary summary = customerService.getServingSummary(providerId);
+            if(summary != null){
+
+                return new GenericMessage(summary);
+            }
         }
 
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ErrorMessage(new EntityNotFoundException());
+    }
+
+    @PostConstruct
+    public void setUpTest(){
+        ServiceProvider provider = new ServiceProvider();
+        provider.setFirstName("John");
+        provider.setLastName("Doe");
+        String providerId = providerService.registerProvider(provider);
+        log.info("====== Started with test provider: {}", providerId);
+
     }
 }
